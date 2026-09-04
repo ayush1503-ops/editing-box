@@ -40,6 +40,20 @@ const VIDEOS: Video[] = [
     thumb: "thumbs/edit-4.jpg",
     reel: "REEL — 04",
   },
+  {
+    id: "1pb_jvgwI-Kk3CUxd-b-WhjeCGR88tt2e",
+    title: "EDIT 05",
+    tag: "VIDEO MONTAGE",
+    thumb: "thumbs/edit-5.jpg",
+    reel: "REEL — 05",
+  },
+  {
+    id: "1fOqFehhUgm9C0RMT4QbhSm8C79MOHVG8",
+    title: "EDIT 06",
+    tag: "VIDEO MONTAGE",
+    thumb: "thumbs/edit-6.jpg",
+    reel: "REEL — 06",
+  },
 ];
 
 function ThumbImg({ video }: { video: Video }) {
@@ -94,7 +108,7 @@ function Card({ video, index, onOpen }: { video: Video; index: number; onOpen: (
           </div>
 
           <div className="absolute inset-x-0 bottom-0 p-4">
-            <p className="font-display text-xl uppercase tracking-tight text-bone md:text-2xl">
+            <p className="font-display text-xl uppercase tracking-tight text-bone transition-colors duration-500 group-hover:text-signal md:text-2xl">
               {video.title}
             </p>
             <p className="mt-1 font-mono text-[10px] tracking-[0.25em] text-signal">{video.tag}</p>
@@ -211,7 +225,7 @@ export default function Work() {
         </div>
         <FadeUp delay={0.25}>
           <p className="max-w-xs font-mono text-[10px] leading-relaxed tracking-[0.2em] text-smoke">
-            FOUR PIECES OF THE CRAFT.
+            SIX PIECES OF THE CRAFT.
             <br />
             <span className="text-bone">TAP A FRAME TO PLAY.</span>
           </p>

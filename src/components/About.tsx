@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { animate, motion, useInView, useScroll, useTransform } from "framer-motion";
+import { animate, useInView } from "framer-motion";
 import { Film } from "lucide-react";
 import { FadeUp, MaskText } from "./MaskText";
 
@@ -23,8 +23,8 @@ function CountUp({ to, decimals = 0 }: { to: number; decimals?: number }) {
 
 function Stat({ value, decimals, label, delay }: { value: number; decimals?: number; label: string; delay: number }) {
   return (
-    <FadeUp delay={delay} className="border-t border-bone/15 pt-6">
-      <p className="font-display text-7xl leading-none text-bone md:text-8xl">
+    <FadeUp delay={delay} className="group border-t border-bone/15 pt-6 transition-colors duration-500 hover:border-signal">
+      <p className="font-display text-7xl leading-none text-bone transition-colors duration-500 group-hover:text-signal md:text-8xl">
         <CountUp to={value} decimals={decimals} />
         <span className="text-signal">+</span>
       </p>
@@ -34,10 +34,6 @@ function Stat({ value, decimals, label, delay }: { value: number; decimals?: num
 }
 
 export default function About() {
-  const imgWrap = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: imgWrap, offset: ["start end", "end start"] });
-  const y = useTransform(scrollYProgress, [0, 1], ["-8%", "8%"]);
-
   return (
     <section id="about" className="relative overflow-hidden px-5 py-28 md:px-10 md:py-40">
       <div className="mb-12 flex items-center justify-between font-mono text-[10px] tracking-[0.3em] text-smoke">
@@ -91,14 +87,13 @@ export default function About() {
 
       {/* studio frame */}
       <FadeUp delay={0.1} className="mt-20 md:mt-28">
-        <div ref={imgWrap} className="group relative aspect-[16/9] overflow-hidden border border-bone/10 md:aspect-[21/9]" data-cursor="VIEW">
-          <motion.img
-            src="studio.jpg"
-            alt="Inside the EditingBox studio — timeline glowing in the dark"
-            style={{ y }}
-            className="absolute inset-0 h-[118%] w-full object-cover grayscale-[0.35] transition-all duration-700 group-hover:grayscale-0"
+        <div className="group relative aspect-[16/9] overflow-hidden border border-bone/10 bg-black md:aspect-[21/9]" data-cursor="VIEW">
+          {/* our logo, front and center in the suite */}
+          <img
+            src="logo.png"
+            alt="EditingBox — video editing agency logo"
+            className="absolute inset-0 z-10 h-full w-full object-contain transition-[transform,filter] duration-700 group-hover:scale-[1.04] group-hover:brightness-110"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-void/80 via-transparent to-void/30" />
           {/* frame corners */}
           <span className="absolute left-4 top-4 h-5 w-5 border-l-2 border-t-2 border-bone/70" />
           <span className="absolute right-4 top-4 h-5 w-5 border-r-2 border-t-2 border-bone/70" />
