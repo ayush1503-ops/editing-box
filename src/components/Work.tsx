@@ -47,6 +47,13 @@ const VIDEOS: Video[] = [
     thumb: "thumbs/edit-5.jpg",
     reel: "REEL — 05",
   },
+  {
+    id: "1fOqFehhUgm9C0RMT4QbhSm8C79MOHVG8",
+    title: "EDIT 06",
+    tag: "VIDEO MONTAGE",
+    thumb: "thumbs/edit-6.jpg",
+    reel: "REEL — 06",
+  },
 ];
 
 function ThumbImg({ video }: { video: Video }) {
@@ -218,7 +225,7 @@ export default function Work() {
         </div>
         <FadeUp delay={0.25}>
           <p className="max-w-xs font-mono text-[10px] leading-relaxed tracking-[0.2em] text-smoke">
-            FIVE PIECES OF THE CRAFT.
+            SIX PIECES OF THE CRAFT.
             <br />
             <span className="text-bone">TAP A FRAME TO PLAY.</span>
           </p>
