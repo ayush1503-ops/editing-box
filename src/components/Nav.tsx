@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Clapperboard, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 
 const LINKS = [
   { label: "ABOUT", href: "#about" },
@@ -17,7 +17,11 @@ export default function Nav() {
       <header className="fixed inset-x-0 top-0 z-[70] mix-blend-difference">
         <nav className="flex items-center justify-between px-5 py-5 md:px-10">
           <a href="#top" className="flex items-center gap-2 text-bone" data-hover>
-            <Clapperboard className="h-5 w-5 text-signal" strokeWidth={2.2} />
+            <img
+              src="logo.png"
+              alt="EditingBox logo"
+              className="h-8 w-8 object-contain md:h-9 md:w-9"
+            />
             <span className="font-display text-lg tracking-wide">
               EDITING<span className="text-signal">BOX</span>
               <sup className="ml-0.5 font-mono text-[9px]">®</sup>

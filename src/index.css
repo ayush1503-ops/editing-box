@@ -74,6 +74,20 @@ section {
   }
 }
 
+/* Hover accent for headline text */
+.hover-signal {
+  transition: color 0.5s ease;
+}
+.hover-signal:hover {
+  color: var(--color-signal);
+}
+.hover-outline-signal {
+  transition: -webkit-text-stroke-color 0.5s ease;
+}
+.hover-outline-signal:hover {
+  -webkit-text-stroke-color: var(--color-signal);
+}
+
 /* Outlined ghost typography */
 .text-outline {
   -webkit-text-stroke: 1.5px var(--color-bone);
