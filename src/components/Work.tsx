@@ -119,9 +119,11 @@ function Card({ video, index, onOpen }: { video: Video; index: number; onOpen: (
   );
 }
 
-/** Own branded player skin — Drive's header strip is covered by our title bar */
+/** Own branded player skin — clean native controls over the direct stream,
+ *  Drive embed kept only as an automatic fallback */
 function Player({ video, onClose }: { video: Video; onClose: () => void }) {
   const [ready, setReady] = useState(false);
+  const [mode, setMode] = useState<"video" | "embed">("video");
 
   return (
     <motion.div
@@ -141,33 +143,62 @@ function Player({ video, onClose }: { video: Video; onClose: () => void }) {
         style={{ width: "min(92vw, 46vh)" }}
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="relative aspect-[9/16] w-full overflow-hidden rounded-md border border-bone/15 bg-ink">
-          {/* loading shimmer behind player */}
-          {!ready && (
-            <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-ink">
-              <Loader2 className="h-6 w-6 animate-spin text-signal" />
-              <span className="font-mono text-[10px] tracking-[0.3em] text-smoke">LOADING REEL</span>
-            </div>
-          )}
-
-          <iframe
-            key={video.id}
-            src={`https://drive.google.com/file/d/${video.id}/preview`}
-            title={video.title}
-            allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
-            allowFullScreen
-            onLoad={() => setReady(true)}
-            className="absolute inset-0 h-full w-full"
-          />
-
-          {/* custom title bar — masks the embedded host's header so it reads as our player */}
-          <div className="absolute inset-x-0 top-0 z-10 flex h-12 items-center justify-between border-b border-white/5 bg-black px-4">
+        {mode === "video" && (
+          <div className="flex h-12 items-center justify-between rounded-t-md border border-b-0 border-bone/15 bg-black px-4">
             <span className="flex items-center gap-2 font-mono text-[10px] tracking-[0.25em] text-bone">
               <span className="h-1.5 w-1.5 animate-blink rounded-full bg-signal" />
               {video.title}
             </span>
             <span className="font-mono text-[9px] tracking-[0.25em] text-smoke">EDITINGBOX® PLAYER</span>
           </div>
+        )}
+        <div
+          className={`relative aspect-[9/16] w-full overflow-hidden border border-bone/15 bg-ink ${
+            mode === "video" ? "rounded-b-md rounded-t-none" : "rounded-md"
+          }`}
+        >
+          {/* loading shimmer behind player (embed fallback; video mode shows the poster) */}
+          {!ready && mode === "embed" && (
+            <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-ink">
+              <Loader2 className="h-6 w-6 animate-spin text-signal" />
+              <span className="font-mono text-[10px] tracking-[0.3em] text-smoke">LOADING REEL</span>
+            </div>
+          )}
+
+          {mode === "video" ? (
+            <video
+              key={video.id}
+              src={`https://drive.google.com/uc?export=download&id=${video.id}`}
+              poster={video.thumb}
+              controls
+              playsInline
+              preload="metadata"
+              onLoadedData={() => setReady(true)}
+              onError={() => setMode("embed")}
+              className="absolute inset-0 h-full w-full bg-black object-contain"
+            />
+          ) : (
+            <iframe
+              key={video.id}
+              src={`https://drive.google.com/file/d/${video.id}/preview`}
+              title={video.title}
+              allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+              allowFullScreen
+              onLoad={() => setReady(true)}
+              className="absolute inset-0 h-full w-full"
+            />
+          )}
+
+          {/* embed fallback only: mask the host's header so it reads as our player */}
+          {mode === "embed" && (
+            <div className="pointer-events-none absolute inset-x-0 top-0 z-10 flex h-14 items-center justify-between border-b border-white/5 bg-black px-4 md:h-12">
+              <span className="flex items-center gap-2 font-mono text-[10px] tracking-[0.25em] text-bone">
+                <span className="h-1.5 w-1.5 animate-blink rounded-full bg-signal" />
+                {video.title}
+              </span>
+              <span className="font-mono text-[9px] tracking-[0.25em] text-smoke">EDITINGBOX® PLAYER</span>
+            </div>
+          )}
         </div>
 
         <div className="mt-3 flex items-center justify-between font-mono text-[10px] tracking-[0.3em] text-smoke">
