@@ -18,9 +18,9 @@ export default function Nav() {
         <nav className="flex items-center justify-between px-5 py-5 md:px-10">
           <a href="#top" className="flex items-center gap-2 text-bone" data-hover>
             <img
-              src="logo.png"
+              src="logo-mark.png"
               alt="EditingBox logo"
-              className="h-8 w-8 object-contain md:h-9 md:w-9"
+              className="h-10 w-10 object-contain md:h-11 md:w-11"
             />
             <span className="font-display text-lg tracking-wide">
               EDITING<span className="text-signal">BOX</span>
@@ -66,7 +66,7 @@ export default function Nav() {
               </button>
             </div>
 
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-2">
               {LINKS.map((l, i) => (
                 <motion.a
                   key={l.label}
@@ -75,14 +75,14 @@ export default function Nav() {
                   initial={{ x: -40, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
                   transition={{ delay: 0.25 + i * 0.07, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                  className="font-display text-6xl leading-[1.05] tracking-tight"
+                  className="font-display text-5xl leading-[1.25] tracking-tight sm:text-6xl sm:leading-[1.2]"
                 >
                   {l.label}
                 </motion.a>
               ))}
             </div>
 
-            <div className="flex flex-col gap-1 font-mono text-xs tracking-[0.15em]">
+            <div className="flex flex-col gap-1.5 font-mono text-xs tracking-[0.2em]">
               <a href="mailto:editorbox26@gmail.com">EDITORBOX26@GMAIL.COM</a>
               <div className="flex gap-4">
                 <a href="tel:9175959250">9175959250</a>

@@ -119,9 +119,11 @@ function Card({ video, index, onOpen }: { video: Video; index: number; onOpen: (
   );
 }
 
-/** Own branded player skin — Drive's header strip is covered by our title bar */
+/** Own branded player skin — clean native controls over the direct stream,
+ *  Drive embed kept only as an automatic fallback */
 function Player({ video, onClose }: { video: Video; onClose: () => void }) {
   const [ready, setReady] = useState(false);
+  const [mode, setMode] = useState<"video" | "embed">("video");
 
   return (
     <motion.div
@@ -138,36 +140,55 @@ function Player({ video, onClose }: { video: Video; onClose: () => void }) {
         exit={{ y: 40, scale: 0.96, opacity: 0 }}
         transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
         className="relative"
-        style={{ width: "min(92vw, 46vh)" }}
+        style={{ width: "min(92vw, calc((100svh - 130px) * 0.5625))" }}
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="relative aspect-[9/16] w-full overflow-hidden rounded-md border border-bone/15 bg-ink">
-          {/* loading shimmer behind player */}
-          {!ready && (
+        {/* title bar always ABOVE the frame — never covers/crops the video */}
+        <div className="flex h-12 items-center justify-between rounded-t-md border border-b-0 border-bone/15 bg-black px-4">
+          <span className="flex items-center gap-2 font-mono text-[10px] tracking-[0.25em] text-bone">
+            <span className="h-1.5 w-1.5 animate-blink rounded-full bg-signal" />
+            {video.title}
+          </span>
+          <span className="font-mono text-[9px] tracking-[0.25em] text-smoke">EDITINGBOX® PLAYER</span>
+        </div>
+        <div className="relative aspect-[9/16] w-full overflow-hidden rounded-b-md border border-bone/15 bg-ink">
+          {/* loading shimmer (embed fallback only; video mode shows the poster) */}
+          {!ready && mode === "embed" && (
             <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-ink">
               <Loader2 className="h-6 w-6 animate-spin text-signal" />
               <span className="font-mono text-[10px] tracking-[0.3em] text-smoke">LOADING REEL</span>
             </div>
           )}
 
-          <iframe
-            key={video.id}
-            src={`https://drive.google.com/file/d/${video.id}/preview`}
-            title={video.title}
-            allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
-            allowFullScreen
-            onLoad={() => setReady(true)}
-            className="absolute inset-0 h-full w-full"
-          />
-
-          {/* custom title bar — masks the embedded host's header so it reads as our player */}
-          <div className="absolute inset-x-0 top-0 z-10 flex h-12 items-center justify-between border-b border-white/5 bg-black px-4">
-            <span className="flex items-center gap-2 font-mono text-[10px] tracking-[0.25em] text-bone">
-              <span className="h-1.5 w-1.5 animate-blink rounded-full bg-signal" />
-              {video.title}
-            </span>
-            <span className="font-mono text-[9px] tracking-[0.25em] text-smoke">EDITINGBOX® PLAYER</span>
-          </div>
+          {mode === "video" ? (
+            <video
+              key={video.id}
+              poster={video.thumb}
+              controls
+              controlsList="nodownload"
+              playsInline
+              preload="metadata"
+              onLoadedData={() => setReady(true)}
+              onError={() => setMode("embed")}
+              className="absolute inset-0 h-full w-full bg-black object-contain"
+            >
+              <source src={`https://drive.usercontent.google.com/download?id=${video.id}&export=download`} />
+              <source src={`https://drive.google.com/uc?export=download&id=${video.id}`} />
+            </video>
+          ) : (
+            /* Drive embed, shifted up so the host's header chrome falls outside the
+               visible box: the player viewport stays exactly 9:16 -> full frame,
+               controls at the bottom, nothing cropped */
+            <iframe
+              key={video.id}
+              src={`https://drive.google.com/file/d/${video.id}/preview`}
+              title={video.title}
+              allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+              allowFullScreen
+              onLoad={() => setReady(true)}
+              className="absolute left-0 -top-[52px] h-[calc(100%+52px)] w-full"
+            />
+          )}
         </div>
 
         <div className="mt-3 flex items-center justify-between font-mono text-[10px] tracking-[0.3em] text-smoke">
@@ -204,13 +225,13 @@ export default function Work() {
   }, [active]);
 
   return (
-    <section id="work" className="relative px-5 py-28 md:px-10 md:py-40">
-      <div className="mb-12 flex items-center justify-between font-mono text-[10px] tracking-[0.3em] text-smoke">
+    <section id="work" className="relative border-t border-bone/10 px-5 py-14 md:px-10 md:py-20">
+      <div className="mb-8 flex items-center justify-between font-mono text-[10px] tracking-[0.3em] text-smoke">
         <span className="text-signal">( 02 )</span>
         <span>SELECTED WORK</span>
       </div>
 
-      <div className="mb-12 flex flex-col gap-6 md:mb-16 md:flex-row md:items-end md:justify-between">
+      <div className="mb-8 flex flex-col gap-6 md:mb-10 md:flex-row md:items-end md:justify-between">
         <div>
           <FadeUp>
             <p className="mb-4 font-mono text-[11px] tracking-[0.35em] text-signal">PORTFOLIO</p>

@@ -35,13 +35,13 @@ function Stat({ value, decimals, label, delay }: { value: number; decimals?: num
 
 export default function About() {
   return (
-    <section id="about" className="relative overflow-hidden px-5 py-28 md:px-10 md:py-40">
-      <div className="mb-12 flex items-center justify-between font-mono text-[10px] tracking-[0.3em] text-smoke">
+    <section id="about" className="relative overflow-hidden px-5 py-14 md:px-10 md:py-20">
+      <div className="mb-8 flex items-center justify-between font-mono text-[10px] tracking-[0.3em] text-smoke">
         <span className="text-signal">( 01 )</span>
         <span>WHO WE ARE</span>
       </div>
 
-      <div className="grid gap-14 md:grid-cols-12 md:gap-8">
+      <div className="grid gap-10 md:grid-cols-12 md:gap-8">
         <div className="md:col-span-7">
           <h2 className="font-display uppercase leading-[0.9] tracking-tight">
             <MaskText>
@@ -54,7 +54,7 @@ export default function About() {
             </MaskText>
           </h2>
 
-          <div className="mt-14 grid gap-10 sm:grid-cols-2">
+          <div className="mt-8 grid gap-10 sm:grid-cols-2">
             <Stat value={2.5} decimals={1} label="YEARS OF EXPERIENCE" delay={0} />
             <Stat value={50} label="CLIENT PROJECTS" delay={0.15} />
           </div>
@@ -86,14 +86,16 @@ export default function About() {
       </div>
 
       {/* studio frame */}
-      <FadeUp delay={0.1} className="mt-20 md:mt-28">
-        <div className="group relative aspect-[16/9] overflow-hidden border border-bone/10 bg-black md:aspect-[21/9]" data-cursor="VIEW">
-          {/* our logo, front and center in the suite */}
+      <FadeUp delay={0.1} className="mt-10 md:mt-14">
+        <div className="group relative aspect-[16/9] overflow-hidden border border-bone/10 bg-ink md:aspect-[21/9]" data-cursor="VIEW">
+          {/* the actual suite — no more empty black frame */}
           <img
-            src="logo.png"
-            alt="EditingBox — video editing agency logo"
-            className="absolute inset-0 z-10 h-full w-full object-contain transition-[transform,filter] duration-700 group-hover:scale-[1.04] group-hover:brightness-110"
+            src="studio.jpg"
+            alt="Inside the EditingBox suite — timeline running on a curved monitor"
+            loading="lazy"
+            className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.05]"
           />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-black/45" />
           {/* frame corners */}
           <span className="absolute left-4 top-4 h-5 w-5 border-l-2 border-t-2 border-bone/70" />
           <span className="absolute right-4 top-4 h-5 w-5 border-r-2 border-t-2 border-bone/70" />

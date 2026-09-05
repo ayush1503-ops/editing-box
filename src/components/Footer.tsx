@@ -4,7 +4,7 @@ export default function Footer() {
   return (
     <footer className="relative overflow-hidden border-t border-bone/10">
       {/* ghost marquee */}
-      <div className="pointer-events-none flex w-max animate-marquee-slow py-6 opacity-100">
+      <div className="pointer-events-none flex w-max animate-marquee-slow py-4 opacity-100">
         {[0, 1].map((n) => (
           <div key={n} className="flex shrink-0 items-center">
             {Array.from({ length: 4 }).map((_, i) => (
