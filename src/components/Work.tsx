@@ -140,24 +140,19 @@ function Player({ video, onClose }: { video: Video; onClose: () => void }) {
         exit={{ y: 40, scale: 0.96, opacity: 0 }}
         transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
         className="relative"
-        style={{ width: "min(92vw, 46vh)" }}
+        style={{ width: "min(92vw, calc((100svh - 130px) * 0.5625))" }}
         onClick={(e) => e.stopPropagation()}
       >
-        {mode === "video" && (
-          <div className="flex h-12 items-center justify-between rounded-t-md border border-b-0 border-bone/15 bg-black px-4">
-            <span className="flex items-center gap-2 font-mono text-[10px] tracking-[0.25em] text-bone">
-              <span className="h-1.5 w-1.5 animate-blink rounded-full bg-signal" />
-              {video.title}
-            </span>
-            <span className="font-mono text-[9px] tracking-[0.25em] text-smoke">EDITINGBOX® PLAYER</span>
-          </div>
-        )}
-        <div
-          className={`relative aspect-[9/16] w-full overflow-hidden border border-bone/15 bg-ink ${
-            mode === "video" ? "rounded-b-md rounded-t-none" : "rounded-md"
-          }`}
-        >
-          {/* loading shimmer behind player (embed fallback; video mode shows the poster) */}
+        {/* title bar always ABOVE the frame — never covers/crops the video */}
+        <div className="flex h-12 items-center justify-between rounded-t-md border border-b-0 border-bone/15 bg-black px-4">
+          <span className="flex items-center gap-2 font-mono text-[10px] tracking-[0.25em] text-bone">
+            <span className="h-1.5 w-1.5 animate-blink rounded-full bg-signal" />
+            {video.title}
+          </span>
+          <span className="font-mono text-[9px] tracking-[0.25em] text-smoke">EDITINGBOX® PLAYER</span>
+        </div>
+        <div className="relative aspect-[9/16] w-full overflow-hidden rounded-b-md border border-bone/15 bg-ink">
+          {/* loading shimmer (embed fallback only; video mode shows the poster) */}
           {!ready && mode === "embed" && (
             <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-ink">
               <Loader2 className="h-6 w-6 animate-spin text-signal" />
@@ -168,15 +163,21 @@ function Player({ video, onClose }: { video: Video; onClose: () => void }) {
           {mode === "video" ? (
             <video
               key={video.id}
-              src={`https://drive.google.com/uc?export=download&id=${video.id}`}
               poster={video.thumb}
               controls
+              controlsList="nodownload"
               playsInline
               preload="metadata"
               onLoadedData={() => setReady(true)}
               onError={() => setMode("embed")}
               className="absolute inset-0 h-full w-full bg-black object-contain"
-            />
+            >
+              <source src={`https://drive.google.com/uc?export=download&id=${video.id}`} type="video/mp4" />
+              <source
+                src={`https://drive.usercontent.google.com/download?id=${video.id}&export=download&confirm=t`}
+                type="video/mp4"
+              />
+            </video>
           ) : (
             <iframe
               key={video.id}
@@ -187,17 +188,6 @@ function Player({ video, onClose }: { video: Video; onClose: () => void }) {
               onLoad={() => setReady(true)}
               className="absolute inset-0 h-full w-full"
             />
-          )}
-
-          {/* embed fallback only: mask the host's header so it reads as our player */}
-          {mode === "embed" && (
-            <div className="pointer-events-none absolute inset-x-0 top-0 z-10 flex h-14 items-center justify-between border-b border-white/5 bg-black px-4 md:h-12">
-              <span className="flex items-center gap-2 font-mono text-[10px] tracking-[0.25em] text-bone">
-                <span className="h-1.5 w-1.5 animate-blink rounded-full bg-signal" />
-                {video.title}
-              </span>
-              <span className="font-mono text-[9px] tracking-[0.25em] text-smoke">EDITINGBOX® PLAYER</span>
-            </div>
           )}
         </div>
 
