@@ -172,13 +172,13 @@ function Player({ video, onClose }: { video: Video; onClose: () => void }) {
               onError={() => setMode("embed")}
               className="absolute inset-0 h-full w-full bg-black object-contain"
             >
-              <source src={`https://drive.google.com/uc?export=download&id=${video.id}`} type="video/mp4" />
-              <source
-                src={`https://drive.usercontent.google.com/download?id=${video.id}&export=download&confirm=t`}
-                type="video/mp4"
-              />
+              <source src={`https://drive.usercontent.google.com/download?id=${video.id}&export=download`} />
+              <source src={`https://drive.google.com/uc?export=download&id=${video.id}`} />
             </video>
           ) : (
+            /* Drive embed, shifted up so the host's header chrome falls outside the
+               visible box: the player viewport stays exactly 9:16 -> full frame,
+               controls at the bottom, nothing cropped */
             <iframe
               key={video.id}
               src={`https://drive.google.com/file/d/${video.id}/preview`}
@@ -186,7 +186,7 @@ function Player({ video, onClose }: { video: Video; onClose: () => void }) {
               allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
               allowFullScreen
               onLoad={() => setReady(true)}
-              className="absolute inset-0 h-full w-full"
+              className="absolute left-0 -top-[52px] h-[calc(100%+52px)] w-full"
             />
           )}
         </div>
