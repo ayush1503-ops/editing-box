@@ -12,13 +12,13 @@ const SERVICES = [
 
 export default function Services() {
   return (
-    <section id="services" className="relative px-5 py-28 md:px-10 md:py-40">
-      <div className="mb-12 flex items-center justify-between font-mono text-[10px] tracking-[0.3em] text-smoke">
+    <section id="services" className="relative px-5 py-20 md:px-10 md:py-28">
+      <div className="mb-10 flex items-center justify-between font-mono text-[10px] tracking-[0.3em] text-smoke">
         <span className="text-signal">( 03 )</span>
         <span>WHAT WE DO</span>
       </div>
 
-      <h2 className="mb-16 font-display uppercase leading-[0.9] tracking-tight md:mb-24">
+      <h2 className="mb-12 font-display uppercase leading-[0.9] tracking-tight md:mb-16">
         <MaskText>
           <span className="text-outline block text-[13vw] md:text-[8vw]">CAPA—</span>
         </MaskText>

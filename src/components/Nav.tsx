@@ -18,9 +18,9 @@ export default function Nav() {
         <nav className="flex items-center justify-between px-5 py-5 md:px-10">
           <a href="#top" className="flex items-center gap-2 text-bone" data-hover>
             <img
-              src="logo.png"
+              src="logo-mark.png"
               alt="EditingBox logo"
-              className="h-8 w-8 object-contain md:h-9 md:w-9"
+              className="h-10 w-10 object-contain md:h-11 md:w-11"
             />
             <span className="font-display text-lg tracking-wide">
               EDITING<span className="text-signal">BOX</span>

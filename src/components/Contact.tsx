@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { ArrowUpRight, Check, Copy, Mail, Phone } from "lucide-react";
+import type { ReactNode } from "react";
+import { ArrowUpRight, Check, Copy, Mail, MessageCircle, Phone } from "lucide-react";
 import { FadeUp, MaskText } from "./MaskText";
 
 const EMAIL = "editorbox26@gmail.com";
@@ -7,6 +8,62 @@ const PHONES = [
   { display: "9175959250", tel: "9175959250" },
   { display: "9284238935", tel: "9284238935" },
 ];
+const WHATSAPP = "https://wa.me/919175959250";
+
+/** One channel card: mono label, display value(s), arrow affordance — same grid system for every channel */
+function ChannelCard({
+  icon,
+  label,
+  href,
+  external,
+  delay,
+  children,
+  action,
+}: {
+  icon: ReactNode;
+  label: string;
+  href?: string;
+  external?: boolean;
+  delay: number;
+  children: ReactNode;
+  action?: ReactNode;
+}) {
+  const inner = (
+    <>
+      <div className="flex items-start justify-between gap-4">
+        <p className="flex items-center gap-2 font-mono text-[10px] tracking-[0.3em] text-signal">
+          {icon}
+          {label}
+        </p>
+        <ArrowUpRight
+          className="h-5 w-5 shrink-0 text-smoke transition-all duration-500 group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-signal md:h-6 md:w-6"
+          strokeWidth={1.6}
+        />
+      </div>
+      <div className="mt-5">{children}</div>
+      {action && <div className="mt-5">{action}</div>}
+    </>
+  );
+
+  const cls =
+    "group block h-full border border-bone/10 bg-ink/60 p-6 transition-colors duration-500 hover:border-signal/60 hover:bg-ink md:p-8";
+
+  return (
+    <FadeUp delay={delay} className="h-full">
+      {href ? (
+        <a
+          href={href}
+          {...(external ? { target: "_blank", rel: "noreferrer noopener" } : {})}
+          className={cls}
+        >
+          {inner}
+        </a>
+      ) : (
+        <div className={cls}>{inner}</div>
+      )}
+    </FadeUp>
+  );
+}
 
 export default function Contact() {
   const [copied, setCopied] = useState(false);
@@ -22,7 +79,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="relative overflow-hidden px-5 pb-28 pt-28 md:px-10 md:pt-40">
+    <section id="contact" className="relative overflow-hidden px-5 pb-20 pt-20 md:px-10 md:pb-24 md:pt-28">
       {/* glow */}
       <div
         className="pointer-events-none absolute inset-0"
@@ -33,7 +90,7 @@ export default function Contact() {
       />
 
       <div className="relative z-10">
-        <div className="mb-12 flex items-center justify-between font-mono text-[10px] tracking-[0.3em] text-smoke">
+        <div className="mb-10 flex items-center justify-between font-mono text-[10px] tracking-[0.3em] text-smoke">
           <span className="text-signal">( 04 )</span>
           <span>GET IN TOUCH</span>
         </div>
@@ -49,86 +106,87 @@ export default function Contact() {
           </MaskText>
         </h2>
 
-        <FadeUp delay={0.2} className="mt-8 text-center">
+        <FadeUp delay={0.2} className="mt-6 text-center">
           <p className="mx-auto max-w-md text-smoke">
-            Got footage waiting for a story? Send it over — we'll cut it into something that
-            moves people.
+            Got footage waiting for a story? Pick a channel — we answer fast and cut faster.
           </p>
         </FadeUp>
 
-        {/* email CTA */}
-        <FadeUp delay={0.25} className="mt-14">
-          <div className="flex flex-col items-center justify-center gap-4 md:flex-row">
-            <a
-              href={`mailto:${EMAIL}`}
-              className="group flex items-center gap-3 border border-bone/20 px-6 py-4 font-display text-xl uppercase tracking-tight text-bone transition-all duration-500 hover:border-signal hover:bg-signal hover:text-black md:px-10 md:py-6 md:text-3xl"
-            >
-              <Mail className="h-6 w-6 shrink-0 md:h-8 md:w-8" strokeWidth={1.6} />
-              {EMAIL}
-              <ArrowUpRight
-                className="h-5 w-5 shrink-0 transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-1 md:h-7 md:w-7"
-                strokeWidth={1.6}
-              />
-            </a>
-            <button
-              onClick={copyEmail}
-              data-hover
-              className="flex items-center gap-2 border border-bone/20 px-5 py-4 font-mono text-[11px] tracking-[0.25em] text-smoke transition-colors duration-300 hover:border-bone hover:text-bone md:py-6"
-              aria-label="Copy email address"
-            >
-              {copied ? (
-                <>
-                  <Check className="h-4 w-4 text-signal" /> COPIED
-                </>
-              ) : (
-                <>
-                  <Copy className="h-4 w-4" /> COPY
-                </>
-              )}
-            </button>
-          </div>
-        </FadeUp>
-
-        {/* details grid */}
-        <div className="mt-20 grid gap-px overflow-hidden border border-bone/10 bg-bone/10 md:grid-cols-3">
-          <FadeUp delay={0} className="bg-void p-8">
-            <p className="mb-4 flex items-center gap-2 font-mono text-[10px] tracking-[0.3em] text-signal">
-              <Phone className="h-3.5 w-3.5" /> CALL THE STUDIO
-            </p>
-            <div className="flex flex-col gap-2">
+        {/* channel cards — one system: label / value / arrow */}
+        <div className="mt-12 grid gap-4 md:mt-16 md:grid-cols-3 md:gap-5">
+          <ChannelCard
+            icon={<Phone className="h-3.5 w-3.5" />}
+            label="CALL THE STUDIO"
+            href={`tel:${PHONES[0].tel}`}
+            delay={0}
+          >
+            <div className="flex flex-col gap-1">
               {PHONES.map((p) => (
-                <a
+                <span
                   key={p.tel}
-                  href={`tel:${p.tel}`}
-                  className="link-sweep w-fit font-display text-2xl tracking-wide text-bone md:text-3xl"
+                  className="link-sweep w-fit font-display text-2xl tracking-wide text-bone transition-colors duration-500 group-hover:text-signal md:text-3xl"
                 >
                   {p.display}
-                </a>
+                </span>
               ))}
             </div>
-          </FadeUp>
+          </ChannelCard>
 
-          <FadeUp delay={0.1} className="bg-void p-8">
-            <p className="mb-4 flex items-center gap-2 font-mono text-[10px] tracking-[0.3em] text-signal">
-              <Mail className="h-3.5 w-3.5" /> WRITE TO US
+          <ChannelCard
+            icon={<MessageCircle className="h-3.5 w-3.5" />}
+            label="WHATSAPP"
+            href={WHATSAPP}
+            external
+            delay={0.1}
+          >
+            <p className="font-display text-2xl tracking-wide text-bone transition-colors duration-500 group-hover:text-signal md:text-3xl">
+              {PHONES[0].display}
             </p>
-            <a
-              href={`mailto:${EMAIL}`}
-              className="link-sweep w-fit break-all font-display text-2xl tracking-wide text-bone md:text-3xl"
-            >
+            <p className="mt-2 font-mono text-[10px] tracking-[0.25em] text-smoke">
+              SEND FOOTAGE LINKS DIRECTLY
+            </p>
+          </ChannelCard>
+
+          <ChannelCard
+            icon={<Mail className="h-3.5 w-3.5" />}
+            label="WRITE TO US"
+            href={`mailto:${EMAIL}`}
+            delay={0.2}
+            action={
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  copyEmail();
+                }}
+                data-hover
+                className="flex items-center gap-2 border border-bone/20 px-4 py-2 font-mono text-[10px] tracking-[0.25em] text-smoke transition-colors duration-300 hover:border-bone hover:text-bone"
+                aria-label="Copy email address"
+              >
+                {copied ? (
+                  <>
+                    <Check className="h-3.5 w-3.5 text-signal" /> COPIED
+                  </>
+                ) : (
+                  <>
+                    <Copy className="h-3.5 w-3.5" /> COPY ADDRESS
+                  </>
+                )}
+              </button>
+            }
+          >
+            <p className="break-all font-display text-2xl tracking-wide text-bone transition-colors duration-500 group-hover:text-signal md:text-3xl">
               {EMAIL}
-            </a>
-          </FadeUp>
-
-          <FadeUp delay={0.2} className="bg-void p-8">
-            <p className="mb-4 font-mono text-[10px] tracking-[0.3em] text-signal">STUDIO</p>
-            <p className="font-display text-2xl uppercase leading-snug tracking-wide text-bone md:text-3xl">
-              INDIA —
-              <br />
-              <span className="text-smoke">WORKING WORLDWIDE</span>
             </p>
-          </FadeUp>
+          </ChannelCard>
         </div>
+
+        <FadeUp delay={0.3} className="mt-10 text-center">
+          <p className="inline-flex items-center gap-3 font-mono text-[10px] tracking-[0.3em] text-smoke">
+            <span className="h-1.5 w-1.5 animate-blink rounded-full bg-signal" />
+            BASED IN INDIA — WORKING WORLDWIDE
+          </p>
+        </FadeUp>
       </div>
     </section>
   );
