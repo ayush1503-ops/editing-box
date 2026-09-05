@@ -12,13 +12,13 @@ const SERVICES = [
 
 export default function Services() {
   return (
-    <section id="services" className="relative px-5 py-20 md:px-10 md:py-28">
-      <div className="mb-10 flex items-center justify-between font-mono text-[10px] tracking-[0.3em] text-smoke">
+    <section id="services" className="relative border-t border-bone/10 px-5 py-14 md:px-10 md:py-20">
+      <div className="mb-8 flex items-center justify-between font-mono text-[10px] tracking-[0.3em] text-smoke">
         <span className="text-signal">( 03 )</span>
         <span>WHAT WE DO</span>
       </div>
 
-      <h2 className="mb-12 font-display uppercase leading-[0.9] tracking-tight md:mb-16">
+      <h2 className="mb-10 font-display uppercase leading-[0.9] tracking-tight md:mb-12">
         <MaskText>
           <span className="text-outline block text-[13vw] md:text-[8vw]">CAPA—</span>
         </MaskText>
@@ -34,7 +34,7 @@ export default function Services() {
           <FadeUp key={s.n} delay={i * 0.05}>
             <div
               data-hover
-              className="group relative flex items-center justify-between gap-4 overflow-hidden border-t border-bone/10 py-7 transition-colors duration-500 md:py-9"
+              className="group relative flex items-center justify-between gap-4 overflow-hidden border-t border-bone/10 py-6 transition-colors duration-500 md:py-8"
             >
               {/* red sweep */}
               <div className="absolute inset-0 origin-bottom scale-y-0 bg-signal transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:scale-y-100" />

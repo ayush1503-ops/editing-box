@@ -104,30 +104,52 @@ export default function Hero({ started }: { started: boolean }) {
           </span>
         </h1>
 
-        {/* CTA buttons */}
-        <motion.div
-          initial={{ opacity: 0, y: 28 }}
-          animate={started ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.8, duration: 0.9, ease: EASE }}
-          className="mt-8 flex flex-wrap items-center gap-4 md:mt-12 md:gap-6"
-        >
-          <a
-            href="#work"
-            data-hover
-            className="group flex items-center gap-3 bg-signal px-8 py-4 font-display text-xl uppercase tracking-tight text-black transition-colors duration-500 hover:bg-bone md:px-10 md:py-5 md:text-2xl"
+        {/* profile card + CTAs — two columns on desktop so the right half stays filled */}
+        <div className="mt-8 grid items-center gap-8 md:mt-10 md:grid-cols-12 md:gap-10">
+          {/* profile picture — the brand mark, big, in front */}
+          <motion.div
+            initial={{ opacity: 0, y: 28 }}
+            animate={started ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.7, duration: 0.9, ease: EASE }}
+            className="w-full md:col-span-5"
           >
-            <Play className="h-5 w-5 fill-black transition-transform duration-500 group-hover:scale-125 md:h-6 md:w-6" />
-            WATCH VIDEOS
-          </a>
-          <a
-            href="#contact"
-            data-hover
-            className="group flex items-center gap-3 border border-bone/30 px-8 py-4 font-display text-xl uppercase tracking-tight text-bone transition-colors duration-500 hover:border-signal hover:text-signal md:px-10 md:py-5 md:text-2xl"
+            <div className="relative aspect-square overflow-hidden rounded-md border border-bone/15 bg-ink">
+              <img
+                src="logo-mark.png"
+                alt="EditingBox — profile"
+                className="absolute inset-0 h-full w-full object-contain p-3 md:p-4"
+              />
+              <span className="absolute bottom-4 left-4 bg-signal px-4 py-2 font-mono text-[11px] font-bold tracking-[0.2em] text-black">
+                EST. 2023
+              </span>
+            </div>
+          </motion.div>
+
+          {/* CTA buttons */}
+          <motion.div
+            initial={{ opacity: 0, y: 28 }}
+            animate={started ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.8, duration: 0.9, ease: EASE }}
+            className="flex flex-wrap items-center gap-4 md:col-span-7 md:gap-6"
           >
-            GET IN TOUCH
-            <ArrowUpRight className="h-5 w-5 transition-transform duration-500 group-hover:-translate-y-1 group-hover:translate-x-1 md:h-6 md:w-6" />
-          </a>
-        </motion.div>
+            <a
+              href="#work"
+              data-hover
+              className="group flex items-center gap-3 bg-signal px-8 py-4 font-display text-xl uppercase tracking-tight text-black transition-colors duration-500 hover:bg-bone md:px-10 md:py-5 md:text-2xl"
+            >
+              <Play className="h-5 w-5 fill-black transition-transform duration-500 group-hover:scale-125 md:h-6 md:w-6" />
+              WATCH VIDEOS
+            </a>
+            <a
+              href="#contact"
+              data-hover
+              className="group flex items-center gap-3 border border-bone/30 px-8 py-4 font-display text-xl uppercase tracking-tight text-bone transition-colors duration-500 hover:border-signal hover:text-signal md:px-10 md:py-5 md:text-2xl"
+            >
+              GET IN TOUCH
+              <ArrowUpRight className="h-5 w-5 transition-transform duration-500 group-hover:-translate-y-1 group-hover:translate-x-1 md:h-6 md:w-6" />
+            </a>
+          </motion.div>
+        </div>
       </div>
 
       {/* bottom bar */}

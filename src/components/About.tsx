@@ -35,13 +35,13 @@ function Stat({ value, decimals, label, delay }: { value: number; decimals?: num
 
 export default function About() {
   return (
-    <section id="about" className="relative overflow-hidden px-5 py-20 md:px-10 md:py-28">
-      <div className="mb-10 flex items-center justify-between font-mono text-[10px] tracking-[0.3em] text-smoke">
+    <section id="about" className="relative overflow-hidden px-5 py-14 md:px-10 md:py-20">
+      <div className="mb-8 flex items-center justify-between font-mono text-[10px] tracking-[0.3em] text-smoke">
         <span className="text-signal">( 01 )</span>
         <span>WHO WE ARE</span>
       </div>
 
-      <div className="grid gap-14 md:grid-cols-12 md:gap-8">
+      <div className="grid gap-10 md:grid-cols-12 md:gap-8">
         <div className="md:col-span-7">
           <h2 className="font-display uppercase leading-[0.9] tracking-tight">
             <MaskText>
@@ -54,7 +54,7 @@ export default function About() {
             </MaskText>
           </h2>
 
-          <div className="mt-10 grid gap-10 sm:grid-cols-2">
+          <div className="mt-8 grid gap-10 sm:grid-cols-2">
             <Stat value={2.5} decimals={1} label="YEARS OF EXPERIENCE" delay={0} />
             <Stat value={50} label="CLIENT PROJECTS" delay={0.15} />
           </div>
@@ -86,7 +86,7 @@ export default function About() {
       </div>
 
       {/* studio frame */}
-      <FadeUp delay={0.1} className="mt-14 md:mt-20">
+      <FadeUp delay={0.1} className="mt-10 md:mt-14">
         <div className="group relative aspect-[16/9] overflow-hidden border border-bone/10 bg-ink md:aspect-[21/9]" data-cursor="VIEW">
           {/* the actual suite — no more empty black frame */}
           <img
@@ -105,17 +105,8 @@ export default function About() {
             <span className="mr-2 inline-block h-2 w-2 animate-blink rounded-full bg-signal align-middle" />
             THE SUITE
           </div>
-          {/* brand plate */}
-          <div className="absolute bottom-5 left-5 flex items-center gap-4 border border-bone/15 bg-black/60 px-4 py-3 backdrop-blur-sm md:bottom-7 md:left-7 md:px-5 md:py-4">
-            <img
-              src="logo-mark.png"
-              alt="EditingBox emblem"
-              className="h-11 w-11 object-contain md:h-14 md:w-14"
-            />
-            <div className="font-mono text-[10px] leading-relaxed tracking-[0.3em] text-bone/70">
-              <span className="block text-bone">EDITINGBOX®</span>
-              WHERE THE CUTS HAPPEN
-            </div>
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 font-mono text-[10px] tracking-[0.35em] text-bone/80">
+            WHERE THE CUTS HAPPEN
           </div>
         </div>
       </FadeUp>

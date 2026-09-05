@@ -79,7 +79,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="relative overflow-hidden px-5 pb-20 pt-20 md:px-10 md:pb-24 md:pt-28">
+    <section id="contact" className="relative overflow-hidden border-t border-bone/10 px-5 py-14 md:px-10 md:py-20">
       {/* glow */}
       <div
         className="pointer-events-none absolute inset-0"
@@ -90,7 +90,7 @@ export default function Contact() {
       />
 
       <div className="relative z-10">
-        <div className="mb-10 flex items-center justify-between font-mono text-[10px] tracking-[0.3em] text-smoke">
+        <div className="mb-8 flex items-center justify-between font-mono text-[10px] tracking-[0.3em] text-smoke">
           <span className="text-signal">( 04 )</span>
           <span>GET IN TOUCH</span>
         </div>
@@ -113,7 +113,7 @@ export default function Contact() {
         </FadeUp>
 
         {/* channel cards — one system: label / value / arrow */}
-        <div className="mt-12 grid gap-4 md:mt-16 md:grid-cols-3 md:gap-5">
+        <div className="mt-10 grid gap-4 md:mt-12 md:grid-cols-3 md:gap-5">
           <ChannelCard
             icon={<Phone className="h-3.5 w-3.5" />}
             label="CALL THE STUDIO"
@@ -181,7 +181,7 @@ export default function Contact() {
           </ChannelCard>
         </div>
 
-        <FadeUp delay={0.3} className="mt-10 text-center">
+        <FadeUp delay={0.3} className="mt-8 text-center">
           <p className="inline-flex items-center gap-3 font-mono text-[10px] tracking-[0.3em] text-smoke">
             <span className="h-1.5 w-1.5 animate-blink rounded-full bg-signal" />
             BASED IN INDIA — WORKING WORLDWIDE

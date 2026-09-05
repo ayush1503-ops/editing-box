@@ -18,8 +18,8 @@ export function MaskText({
         className="block will-change-transform"
         initial={{ y: "112%" }}
         whileInView={{ y: "0%" }}
-        viewport={{ once: true, margin: "-8%" }}
-        transition={{ duration: 1, delay, ease: [0.16, 1, 0.3, 1] }}
+        viewport={{ once: true, margin: "0px 0px 25% 0px" }}
+        transition={{ duration: 0.8, delay, ease: [0.16, 1, 0.3, 1] }}
       >
         {children}
       </motion.span>
@@ -40,8 +40,8 @@ export function FadeUp({
     <motion.div
       initial={{ y: 44, opacity: 0 }}
       whileInView={{ y: 0, opacity: 1 }}
-      viewport={{ once: true, margin: "-8%" }}
-      transition={{ duration: 0.9, delay, ease: [0.16, 1, 0.3, 1] }}
+      viewport={{ once: true, margin: "0px 0px 25% 0px" }}
+      transition={{ duration: 0.7, delay, ease: [0.16, 1, 0.3, 1] }}
       className={className}
     >
       {children}
