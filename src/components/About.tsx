@@ -5,7 +5,7 @@ import { FadeUp, MaskText } from "./MaskText";
 
 function CountUp({ to, decimals = 0 }: { to: number; decimals?: number }) {
   const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-60px" });
+  const inView = useInView(ref, { once: true, margin: "200px" });
   const [val, setVal] = useState(0);
 
   useEffect(() => {
@@ -35,8 +35,8 @@ function Stat({ value, decimals, label, delay }: { value: number; decimals?: num
 
 export default function About() {
   return (
-    <section id="about" className="relative overflow-hidden px-5 py-14 md:px-10 md:py-20">
-      <div className="mb-8 flex items-center justify-between font-mono text-[10px] tracking-[0.3em] text-smoke">
+    <section id="about" className="relative overflow-hidden px-5 py-8 md:px-10 md:py-12">
+      <div className="mb-5 flex items-center justify-between font-mono text-[10px] tracking-[0.3em] text-smoke">
         <span className="text-signal">( 01 )</span>
         <span>WHO WE ARE</span>
       </div>
@@ -56,7 +56,7 @@ export default function About() {
 
           <div className="mt-8 grid gap-10 sm:grid-cols-2">
             <Stat value={2.5} decimals={1} label="YEARS OF EXPERIENCE" delay={0} />
-            <Stat value={50} label="CLIENT PROJECTS" delay={0.15} />
+            <Stat value={6} label="VIDEO PROJECTS" delay={0.15} />
           </div>
         </div>
 
@@ -82,6 +82,27 @@ export default function About() {
               </div>
             </FadeUp>
           </div>
+
+          {/* toolbox — fills the right column bottom */}
+          <FadeUp delay={0.5} className="md:pl-8">
+            <div className="border border-bone/10 bg-ink/50 p-6">
+              <p className="mb-5 flex items-center gap-2 font-mono text-[10px] tracking-[0.3em] text-signal">
+                <span className="h-1.5 w-1.5 animate-blink rounded-full bg-signal" />
+                IN THE TOOLBOX
+              </p>
+              <ul className="space-y-3">
+                {["PREMIERE PRO", "AFTER EFFECTS", "DAVINCI RESOLVE", "CAPCUT"].map((t, i) => (
+                  <li
+                    key={t}
+                    className="flex items-center justify-between font-mono text-[11px] tracking-[0.25em] text-bone/80"
+                  >
+                    <span className="transition-colors duration-300 hover:text-signal">{t}</span>
+                    <span className="text-smoke">{String(i + 1).padStart(2, "0")}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </FadeUp>
         </div>
       </div>
 

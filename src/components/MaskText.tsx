@@ -1,5 +1,10 @@
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
 import type { ReactNode } from "react";
+
+/** Reveal margin: content starts animating 200px BEFORE it enters the screen,
+ *  so visible space is never an empty black hole */
+const TRIGGER = "200px";
 
 export function MaskText({
   children,
@@ -12,13 +17,16 @@ export function MaskText({
   className?: string;
   as?: "span" | "div";
 }) {
+  const ref = useRef<HTMLElement>(null);
+  const inView = useInView(ref, { once: true, margin: TRIGGER });
+
   return (
     <Tag className={`block overflow-hidden ${className}`}>
       <motion.span
+        ref={ref}
         className="block will-change-transform"
         initial={{ y: "112%" }}
-        whileInView={{ y: "0%" }}
-        viewport={{ once: true, margin: "0px 0px 25% 0px" }}
+        animate={inView ? { y: "0%" } : { y: "112%" }}
         transition={{ duration: 0.8, delay, ease: [0.16, 1, 0.3, 1] }}
       >
         {children}
@@ -36,12 +44,15 @@ export function FadeUp({
   delay?: number;
   className?: string;
 }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: TRIGGER });
+
   return (
     <motion.div
-      initial={{ y: 44, opacity: 0 }}
-      whileInView={{ y: 0, opacity: 1 }}
-      viewport={{ once: true, margin: "0px 0px 25% 0px" }}
-      transition={{ duration: 0.7, delay, ease: [0.16, 1, 0.3, 1] }}
+      ref={ref}
+      initial={{ y: 32, opacity: 0 }}
+      animate={inView ? { y: 0, opacity: 1 } : { y: 32, opacity: 0 }}
+      transition={{ duration: 0.6, delay, ease: [0.16, 1, 0.3, 1] }}
       className={className}
     >
       {children}

@@ -10,6 +10,13 @@ const PHONES = [
 ];
 const WHATSAPP = "https://wa.me/919175959250";
 
+/** Social handles — swap these for the real accounts */
+const SOCIALS = [
+  { label: "INSTAGRAM", handle: "@editorbox26", href: "https://www.instagram.com/editorbox26" },
+  { label: "TIKTOK", handle: "@editorbox26", href: "https://www.tiktok.com/@editorbox26" },
+  { label: "SNAPCHAT", handle: "@editorbox26", href: "https://www.snapchat.com/add/editorbox26" },
+];
+
 /** One channel card: mono label, display value(s), arrow affordance — same grid system for every channel */
 function ChannelCard({
   icon,
@@ -79,7 +86,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="relative overflow-hidden border-t border-bone/10 px-5 py-14 md:px-10 md:py-20">
+    <section id="contact" className="relative overflow-hidden px-5 py-8 md:px-10 md:py-12">
       {/* glow */}
       <div
         className="pointer-events-none absolute inset-0"
@@ -90,33 +97,54 @@ export default function Contact() {
       />
 
       <div className="relative z-10">
-        <div className="mb-8 flex items-center justify-between font-mono text-[10px] tracking-[0.3em] text-smoke">
+        <div className="mb-5 flex items-center justify-between font-mono text-[10px] tracking-[0.3em] text-smoke">
           <span className="text-signal">( 04 )</span>
           <span>GET IN TOUCH</span>
         </div>
 
         <h2 className="text-center font-display uppercase leading-[0.85] tracking-tight">
           <MaskText>
-            <span className="text-outline block text-[16vw] md:text-[11vw]">LET'S MAKE</span>
+            <span className="text-outline block text-[16vw] md:text-[11vw]">LET'S CREATE</span>
           </MaskText>
           <MaskText delay={0.12}>
             <span className="block text-[16vw] text-bone md:text-[11vw]">
-              THE CUT<span className="text-signal">.</span>
+              TOGETHER<span className="text-signal">.</span>
             </span>
           </MaskText>
         </h2>
 
         <FadeUp delay={0.2} className="mt-6 text-center">
           <p className="mx-auto max-w-md text-smoke">
-            Got footage waiting for a story? Pick a channel — we answer fast and cut faster.
+            Have a project in mind? Reach out through any channel below.
           </p>
+        </FadeUp>
+
+        {/* social row — one system for every platform: name · handle */}
+        <FadeUp delay={0.28} className="mt-7">
+          <div className="flex flex-wrap items-center justify-center gap-x-9 gap-y-3">
+            {SOCIALS.map((s) => (
+              <a
+                key={s.label}
+                href={s.href}
+                target="_blank"
+                rel="noreferrer noopener"
+                className="group flex items-center gap-2 font-mono text-[11px] tracking-[0.25em] text-bone/80 transition-colors duration-300 hover:text-signal"
+              >
+                {s.label}
+                <span className="text-smoke transition-colors duration-300 group-hover:text-signal/70">
+                  {s.handle}
+                </span>
+                <ArrowUpRight className="h-3.5 w-3.5 text-smoke transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-signal" />
+              </a>
+            ))}
+          </div>
         </FadeUp>
 
         {/* channel cards — one system: label / value / arrow */}
         <div className="mt-10 grid gap-4 md:mt-12 md:grid-cols-3 md:gap-5">
           <ChannelCard
             icon={<Phone className="h-3.5 w-3.5" />}
-            label="CALL THE STUDIO"
+            label="CALL"
             href={`tel:${PHONES[0].tel}`}
             delay={0}
           >
@@ -149,7 +177,7 @@ export default function Contact() {
 
           <ChannelCard
             icon={<Mail className="h-3.5 w-3.5" />}
-            label="WRITE TO US"
+            label="EMAIL"
             href={`mailto:${EMAIL}`}
             delay={0.2}
             action={

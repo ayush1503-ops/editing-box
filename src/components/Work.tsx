@@ -225,13 +225,22 @@ export default function Work() {
   }, [active]);
 
   return (
-    <section id="work" className="relative border-t border-bone/10 px-5 py-14 md:px-10 md:py-20">
-      <div className="mb-8 flex items-center justify-between font-mono text-[10px] tracking-[0.3em] text-smoke">
+    <section id="work" className="relative overflow-hidden px-5 py-8 md:px-10 md:py-12">
+      {/* ambient light so the black stays alive */}
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(ellipse 55% 40% at 88% 0%, rgba(255,59,48,0.08), transparent 60%), radial-gradient(ellipse 45% 35% at 8% 100%, rgba(255,59,48,0.05), transparent 60%)",
+        }}
+      />
+      <div className="relative z-10">
+      <div className="mb-5 flex items-center justify-between font-mono text-[10px] tracking-[0.3em] text-smoke">
         <span className="text-signal">( 02 )</span>
         <span>SELECTED WORK</span>
       </div>
 
-      <div className="mb-8 flex flex-col gap-6 md:mb-10 md:flex-row md:items-end md:justify-between">
+      <div className="mb-6 flex flex-col gap-6 md:mb-8 md:flex-row md:items-end md:justify-between">
         <div>
           <FadeUp>
             <p className="mb-4 font-mono text-[11px] tracking-[0.35em] text-signal">PORTFOLIO</p>
@@ -260,6 +269,7 @@ export default function Work() {
       </div>
 
       <AnimatePresence>{active && <Player video={active} onClose={() => setActive(null)} />}</AnimatePresence>
+      </div>
     </section>
   );
 }
