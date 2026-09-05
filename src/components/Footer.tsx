@@ -2,7 +2,7 @@ import { ArrowUp } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="relative overflow-hidden border-t border-bone/10">
+    <footer className="relative overflow-hidden">
       {/* ghost marquee */}
       <div className="pointer-events-none flex w-max animate-marquee-slow py-4 opacity-100">
         {[0, 1].map((n) => (

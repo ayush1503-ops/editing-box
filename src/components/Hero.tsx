@@ -54,10 +54,13 @@ export default function Hero({ started }: { started: boolean }) {
           initial={{ opacity: 0, y: -10 }}
           animate={started ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.9, duration: 0.8, ease: EASE }}
-          className="flex flex-col gap-1"
+          className="flex items-end gap-3 md:gap-4"
         >
-          <span className="text-bone">VIDEO EDITING STUDIO</span>
-          <span>EST. 2023 — WORKING WORLDWIDE</span>
+          <span className="font-display text-5xl leading-none text-bone md:text-6xl">06</span>
+          <span className="flex flex-col gap-1 pb-0.5">
+            <span className="text-bone">CREATIVE EDITOR</span>
+            <span>EST. 2023 — WORKING WORLDWIDE</span>
+          </span>
         </motion.div>
         <motion.div
           initial={{ opacity: 0, y: -10 }}
@@ -70,84 +73,117 @@ export default function Hero({ started }: { started: boolean }) {
         </motion.div>
       </div>
 
-      {/* headline */}
+      {/* headline left + mark right — one filled frame, no empty black columns */}
       <div className="relative z-10 px-5 md:px-10">
-        <div className="overflow-hidden">
-          <motion.p
-            {...reveal(0.55)}
-            className="mb-2 flex items-center gap-3 font-mono text-[11px] tracking-[0.35em] text-signal"
-          >
-            <Scissors className="h-4 w-4" strokeWidth={1.8} />
-            RAW FOOTAGE IN — STORIES OUT
-          </motion.p>
-        </div>
+        <div className="grid items-center gap-10 md:grid-cols-12 md:gap-8">
+          {/* left — the name */}
+          <div className="md:col-span-7">
+            <div className="overflow-hidden">
+              <motion.p
+                {...reveal(0.55)}
+                className="mb-3 flex items-center gap-3 font-mono text-[11px] tracking-[0.35em] text-signal"
+              >
+                <Scissors className="h-4 w-4" strokeWidth={1.8} />
+                RAW FOOTAGE IN — STORIES OUT
+              </motion.p>
+            </div>
 
-        <h1 className="font-display uppercase leading-[0.84] tracking-tight">
-          <span className="block overflow-hidden">
-            <motion.span
-              {...reveal(0.35)}
-              className="hover-signal block text-[19.5vw] text-bone md:text-[17vw]"
-            >
-              EDITING
-            </motion.span>
-          </span>
-          <span className="block overflow-hidden">
-            <motion.span
-              {...reveal(0.48)}
-              className="text-outline hover-outline-signal block text-[19.5vw] md:text-[17vw]"
-            >
-              BOX
-              <span className="text-signal" style={{ WebkitTextStroke: "0px" }}>
-                .
+            <h1 className="font-display uppercase leading-[0.84] tracking-tight">
+              <span className="block overflow-hidden">
+                <motion.span
+                  {...reveal(0.3)}
+                  className="hover-signal block text-[16.5vw] text-bone md:text-[11.5vw]"
+                >
+                  EDITING
+                </motion.span>
               </span>
-            </motion.span>
-          </span>
-        </h1>
+              <span className="block overflow-hidden">
+                <motion.span
+                  {...reveal(0.42)}
+                  className="text-outline hover-outline-signal block text-[16.5vw] md:text-[11.5vw]"
+                >
+                  BOX
+                </motion.span>
+              </span>
+              <span className="block overflow-hidden">
+                <motion.span
+                  {...reveal(0.54)}
+                  className="block text-[16.5vw] text-bone md:text-[11.5vw]"
+                >
+                  EDITS
+                  <span className="text-signal" style={{ WebkitTextStroke: "0px" }}>
+                    .
+                  </span>
+                </motion.span>
+              </span>
+            </h1>
 
-        {/* profile card + CTAs — two columns on desktop so the right half stays filled */}
-        <div className="mt-8 grid items-center gap-8 md:mt-10 md:grid-cols-12 md:gap-10">
-          {/* profile picture — the brand mark, big, in front */}
+            {/* one-line intro */}
+            <div className="mt-5 overflow-hidden md:mt-7">
+              <motion.p
+                initial={{ y: "112%" }}
+                animate={started ? { y: "0%" } : { y: "112%" }}
+                transition={{ duration: 0.9, delay: 0.78, ease: EASE }}
+                className="max-w-xl text-base leading-relaxed text-smoke md:text-lg"
+              >
+                Video editor &amp; visual storyteller crafting bold, high-impact content —
+                sharpening the craft <span className="text-bone">one frame at a time</span>.
+              </motion.p>
+            </div>
+
+            {/* CTA buttons */}
+            <motion.div
+              initial={{ opacity: 0, y: 28 }}
+              animate={started ? { opacity: 1, y: 0 } : {}}
+              transition={{ delay: 1.02, duration: 0.9, ease: EASE }}
+              className="mt-8 flex flex-wrap items-center gap-4 md:mt-10 md:gap-6"
+            >
+              <a
+                href="#work"
+                data-hover
+                className="group flex items-center gap-3 bg-signal px-8 py-4 font-display text-xl uppercase tracking-tight text-black transition-colors duration-500 hover:bg-bone md:px-10 md:py-5 md:text-2xl"
+              >
+                <Play className="h-5 w-5 fill-black transition-transform duration-500 group-hover:scale-125 md:h-6 md:w-6" />
+                WATCH VIDEOS
+              </a>
+              <a
+                href="#contact"
+                data-hover
+                className="group flex items-center gap-3 border border-bone/30 px-8 py-4 font-display text-xl uppercase tracking-tight text-bone transition-colors duration-500 hover:border-signal hover:text-signal md:px-10 md:py-5 md:text-2xl"
+              >
+                GET IN TOUCH
+                <ArrowUpRight className="h-5 w-5 transition-transform duration-500 group-hover:-translate-y-1 group-hover:translate-x-1 md:h-6 md:w-6" />
+              </a>
+            </motion.div>
+          </div>
+
+          {/* right — the mark floating in the scene's red light */}
           <motion.div
             initial={{ opacity: 0, y: 28 }}
             animate={started ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.7, duration: 0.9, ease: EASE }}
-            className="w-full md:col-span-5"
+            transition={{ delay: 0.92, duration: 0.9, ease: EASE }}
+            className="md:col-span-5"
           >
-            <div className="relative aspect-square overflow-hidden rounded-md border border-bone/15 bg-ink">
-              <img
-                src="logo-mark.png"
-                alt="EditingBox — profile"
-                className="absolute inset-0 h-full w-full object-contain p-3 md:p-4"
+            <div className="relative mx-auto max-w-[15rem] md:max-w-full">
+              {/* scene light behind the mark — matches the hero's ambient glow */}
+              <div
+                className="absolute -inset-8 blur-3xl"
+                style={{
+                  background:
+                    "radial-gradient(circle at 50% 55%, rgba(255,59,48,0.38), rgba(255,59,48,0.12) 45%, transparent 72%)",
+                }}
               />
-              <span className="absolute bottom-4 left-4 bg-signal px-4 py-2 font-mono text-[11px] font-bold tracking-[0.2em] text-black">
+              <motion.img
+                src="logo-mark.png"
+                alt="EditingBox — logo"
+                className="relative w-full select-none drop-shadow-[0_28px_50px_rgba(0,0,0,0.6)]"
+                animate={{ y: [0, -12, 0] }}
+                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+              />
+              <span className="absolute bottom-1 left-1/2 -translate-x-1/2 whitespace-nowrap bg-signal px-4 py-2 font-mono text-[11px] font-bold tracking-[0.2em] text-black">
                 EST. 2023
               </span>
             </div>
-          </motion.div>
-
-          {/* CTA buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 28 }}
-            animate={started ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.8, duration: 0.9, ease: EASE }}
-            className="flex flex-wrap items-center gap-4 md:col-span-7 md:gap-6"
-          >
-            <a
-              href="#work"
-              data-hover
-              className="group flex items-center gap-3 bg-signal px-8 py-4 font-display text-xl uppercase tracking-tight text-black transition-colors duration-500 hover:bg-bone md:px-10 md:py-5 md:text-2xl"
-            >
-              <Play className="h-5 w-5 fill-black transition-transform duration-500 group-hover:scale-125 md:h-6 md:w-6" />
-              WATCH VIDEOS
-            </a>
-            <a
-              href="#contact"
-              data-hover
-              className="group flex items-center gap-3 border border-bone/30 px-8 py-4 font-display text-xl uppercase tracking-tight text-bone transition-colors duration-500 hover:border-signal hover:text-signal md:px-10 md:py-5 md:text-2xl"
-            >
-              GET IN TOUCH
-              <ArrowUpRight className="h-5 w-5 transition-transform duration-500 group-hover:-translate-y-1 group-hover:translate-x-1 md:h-6 md:w-6" />
-            </a>
           </motion.div>
         </div>
       </div>

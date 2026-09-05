@@ -16,7 +16,7 @@ export default function App() {
   const [loaded, setLoaded] = useState(false);
 
   return (
-    <div className="relative min-h-screen bg-void font-body text-bone">
+    <div className="relative min-h-screen font-body text-bone">
       <Noise />
       <Cursor />
 

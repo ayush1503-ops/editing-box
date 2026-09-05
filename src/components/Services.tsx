@@ -12,13 +12,21 @@ const SERVICES = [
 
 export default function Services() {
   return (
-    <section id="services" className="relative border-t border-bone/10 px-5 py-14 md:px-10 md:py-20">
-      <div className="mb-8 flex items-center justify-between font-mono text-[10px] tracking-[0.3em] text-smoke">
+    <section id="services" className="relative overflow-hidden px-5 py-8 md:px-10 md:py-12">
+      {/* ambient light so the black stays alive */}
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(ellipse 60% 45% at 50% 100%, rgba(255,59,48,0.07), transparent 65%), radial-gradient(ellipse 40% 30% at 95% 0%, rgba(255,59,48,0.05), transparent 60%)",
+        }}
+      />
+      <div className="relative z-10 mb-5 flex items-center justify-between font-mono text-[10px] tracking-[0.3em] text-smoke">
         <span className="text-signal">( 03 )</span>
         <span>WHAT WE DO</span>
       </div>
 
-      <h2 className="mb-10 font-display uppercase leading-[0.9] tracking-tight md:mb-12">
+      <h2 className="mb-6 font-display uppercase leading-[0.9] tracking-tight md:mb-8">
         <MaskText>
           <span className="text-outline block text-[13vw] md:text-[8vw]">CAPA—</span>
         </MaskText>
